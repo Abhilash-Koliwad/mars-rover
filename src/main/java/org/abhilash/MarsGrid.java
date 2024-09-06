@@ -20,18 +20,20 @@ public class MarsGrid {
     }
 
     public void processCommands() {
-        for (RobotCommand robotCommand : robotCommands) {
+        for (RobotCommand robotCommand : this.robotCommands) {
             Robot robot = robotCommand.getRobot();
             char[] commands = robotCommand.getCommands();
-
             for (char command : commands) {
-                robot.executeCommand(command, rows, columns);
+                robot.executeCommand(command, this.rows - 1, this.columns - 1);
+                if (robot.isLost()) {
+                    break;
+                }
             }
         }
     }
 
     public void printRobots() {
-        for (RobotCommand robotCommand : robotCommands) {
+        for (RobotCommand robotCommand : this.robotCommands) {
             System.out.println(robotCommand.getRobot());
         }
     }
